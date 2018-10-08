@@ -9,8 +9,7 @@ public class ItemParser {
         String[] itemValues = itemString.replaceAll("[()€]","").split(",");
         int index = Integer.parseInt(itemValues[0]);
         double weight = Double.parseDouble(itemValues[1]);
-        double cost = Double.parseDouble(itemValues[2]);
-
+        int cost = Integer.parseInt(itemValues[2]);
 
         return new ItemModel(index, weight, cost);
     }

@@ -2,14 +2,14 @@ package com.mobiquityinc.model;
 
 import com.mobiquityinc.exception.APIException;
 
-public class ItemModel {
+public class ItemModel  {
 
     private int index;
     private double weight;
-    private double cost;
+    private int cost;
 
 
-    public ItemModel(int index, double weight, double cost) throws APIException {
+    public ItemModel(int index, double weight, int cost) throws APIException {
 
         if(weight > 100 || cost > 100) {
             throw new APIException("Item weight and cost have to be less or equal than 100");
@@ -32,7 +32,22 @@ public class ItemModel {
         return weight;
     }
 
-    public double getCost() {
+    public int getCost() {
         return cost;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (!ItemModel.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+
+        final ItemModel other = (ItemModel) obj;
+
+        return this.index == other.index && Double.compare(this.weight, other.weight) == 0 && this.cost == other.cost;
     }
 }

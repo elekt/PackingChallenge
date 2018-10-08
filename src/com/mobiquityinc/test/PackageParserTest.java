@@ -6,6 +6,8 @@ import com.mobiquityinc.parser.PackageParser;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,10 +17,12 @@ class PackageParserTest {
     void testParsePackage() {
         PackageParser packageParser = new PackageParser();
 
-        PackageModel testPackage = packageParser.parsePackage("81 : (1,53.38,€45) (2,88.62,€98) (3,78.48,€3) (4,72.30,€76) (5,30.18,€9) (6,46.34,€48)");
+        PackageModel testPackage = packageParser.parsePackage("81 : (1,53.38,€45) (2,88.62,€98) (3,78.48,€3)");
 
+        List<ItemModel> testItems = Arrays.asList(  new ItemModel(1, 53.38, 45),
+                                                    new ItemModel(2, 88.62, 98),
+                                                    new ItemModel(3, 78.48, 3));
         assertEquals(81, testPackage.getMaxWeight());
-        // TODO test
-        assertEquals(null, testPackage.getItems());
+        assertTrue(Arrays.equals(testItems.toArray(), testPackage.getItems().toArray()));
     }
 }
