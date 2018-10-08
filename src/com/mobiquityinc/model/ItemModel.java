@@ -2,12 +2,26 @@ package com.mobiquityinc.model;
 
 import com.mobiquityinc.exception.APIException;
 
+
+/**
+ * The model of and item that can be included in the packing solution.
+ *
+ * @author  Tamas Elekes
+ */
 public class ItemModel  {
 
     private int index;
     private double weight;
     private int cost;
 
+    /**
+     * Creates an item model
+     *
+     * @param index the index of the item
+     * @param weight the weight of the item
+     * @param cost the cost of the item
+     * @throws APIException for parameter errors
+     */
     public ItemModel(int index, double weight, int cost) throws APIException {
 
         if(weight > 100 || cost > 100) {

@@ -2,7 +2,6 @@ package com.mobiquityinc.parser;
 
 import com.mobiquityinc.exception.APIException;
 import com.mobiquityinc.model.PackageModel;
-import org.apiguardian.api.API;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,10 +9,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Parses an input file that contains knapsack problems line by line
+ * @author Tamas Elekes
+ */
 public class InputFileParser {
 
     public List<PackageModel> parseFile(String path) throws APIException {

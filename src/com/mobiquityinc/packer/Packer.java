@@ -6,8 +6,16 @@ import com.mobiquityinc.parser.InputFileParser;
 
 import java.util.List;
 
+/**
+ * Packer problem solver.
+ *
+ * @author  Tamas Elekes
+ */
 public class Packer {
 
+    /**
+     * @param path absolute path to the input file
+     */
     public static String pack(String path) throws APIException {
         StringBuilder resultBuilder = new StringBuilder();
         Solver solver = new RecursiveSolver();

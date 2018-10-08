@@ -3,17 +3,26 @@ package com.mobiquityinc.packer;
 import com.mobiquityinc.model.ItemModel;
 import com.mobiquityinc.model.PackageModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A recursive solver for the knapsack problem
+ *
+ * @author  Tamas Elekes
+ */
 public class RecursiveSolver implements Solver {
+
+    /**
+     * Builds the solution of the packaging problem
+     * @param pack the package model
+     * @return a String listing the indexes of the used items
+     */
     @Override
     public String solve(PackageModel pack) {
         StringBuilder resultBuilder = new StringBuilder();
 
         boolean visited[] = new boolean[pack.getItems().size()];
-        knapSack(pack.getMaxWeight(), pack.getItems(), pack.getItems().size(), visited);
-
+        recursion(pack.getMaxWeight(), pack.getItems(), pack.getItems().size(), visited);
 
         for(int i=0; i < pack.getItems().size(); i++) {
             if(visited[i]) {
@@ -31,33 +40,43 @@ public class RecursiveSolver implements Solver {
         return resultBuilder.toString().trim();
     }
 
-    private int knapSack(double maxWeight, List<ItemModel> items, int n, boolean visited[]) {
+    /**
+     * Recursive solver of the knapsack problem.
+     * @param maxWeight the total weight that the package can include
+     * @param items the items that can be included in the package
+     * @param n the depth of the recursion, stops when runs out of items
+     * @param visited bool array that corresponds to the choosen items
+     * @return the maximum cost that can be obtained with the given package size and items
+     */
+    private int recursion(double maxWeight, List<ItemModel> items, int n, boolean visited[]) {
 
         if (n == 0 || maxWeight == 0) {
             return 0;
         }
 
-        // If weight of the nth item is more than Knapsack capacity W, then
-        // this item cannot be included in the optimal solution
+        // skipping items that are larger than the remaining space left in the package
         if (items.get(n-1).getWeight() > maxWeight) {
-
-            return knapSack(maxWeight, items, n-1, visited);
+            return recursion(maxWeight, items, n-1, visited);
         } else {
+            // maintaining the copy in each depth of the items we included
+            boolean visited1[] = new boolean[visited.length];
+            System.arraycopy(visited, 0, visited1, 0, visited1.length);
+            boolean visited2[] = new boolean[visited.length];
+            System.arraycopy(visited, 0, visited2, 0, visited2.length);
+            visited1[n-1] = true;
 
-            boolean v1[]=new boolean[visited.length];
-            System.arraycopy(visited, 0, v1, 0, v1.length);
-            boolean v2[]=new boolean[visited.length];
-            System.arraycopy(visited, 0, v2, 0, v2.length);
-            v1[n-1]=true;
+            // we include this item
+            int sumCost1 = items.get(n-1).getCost() + recursion(maxWeight-items.get(n-1).getWeight(), items, n-1, visited1);
+            // we do not include this item
+            int sumCost2 = recursion(maxWeight, items, n-1, visited2);
 
-            int ans1 = items.get(n-1).getCost() + knapSack(maxWeight-items.get(n-1).getWeight(), items, n-1, v1);
-            int ans2 = knapSack(maxWeight, items, n-1,v2);
-            if(ans1>ans2){
-                System.arraycopy(v1, 0, visited, 0, v1.length);
-                return ans1;
+            // return the better solution, and copy back to the original visited array this solution
+            if(sumCost1 > sumCost2){
+                System.arraycopy(visited1, 0, visited, 0, visited1.length);
+                return sumCost1;
             } else{
-                System.arraycopy(v2, 0, visited, 0, v2.length);
-                return ans2;
+                System.arraycopy(visited2, 0, visited, 0, visited2.length);
+                return sumCost2;
             }
         }
     }

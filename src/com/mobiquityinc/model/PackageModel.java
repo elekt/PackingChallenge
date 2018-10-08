@@ -4,11 +4,21 @@ import com.mobiquityinc.exception.APIException;
 
 import java.util.List;
 
+
+/**
+ *  Data model that represents a package.
+ *
+ * @author  Tamas Elekes
+ */
 public class PackageModel {
 
     private int maxWeight;
     private List<ItemModel> items;
 
+    /**
+     * @param maxWeight the total possible weight of the choosen items
+     * @param items all the items in a packer problem
+     */
     public PackageModel(int maxWeight, List<ItemModel> items) throws APIException{
 
         if(maxWeight > 100 ) {

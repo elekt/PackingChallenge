@@ -3,6 +3,11 @@ package com.mobiquityinc.parser;
 import com.mobiquityinc.exception.APIException;
 import com.mobiquityinc.model.ItemModel;
 
+/**
+ * Parses an item from a string.
+ * example form: (1,90.72,€13)
+ * @author Tamas Elekes
+ */
 public class ItemParser {
 
     public ItemModel parseItem(String itemString) throws APIException {
