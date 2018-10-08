@@ -8,7 +8,6 @@ public class ItemModel  {
     private double weight;
     private int cost;
 
-
     public ItemModel(int index, double weight, int cost) throws APIException {
 
         if(weight > 100 || cost > 100) {

@@ -1,12 +1,12 @@
 package com.mobiquityinc.test;
 
-import com.mobiquityinc.Main;
 import com.mobiquityinc.exception.APIException;
 import com.mobiquityinc.model.ItemModel;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ItemModelTest {
 

@@ -9,11 +9,18 @@ import java.util.List;
 public class Packer {
 
     public static String pack(String path) throws APIException {
-        String ret = "";
+        StringBuilder resultBuilder = new StringBuilder();
+        Solver solver = new RecursiveSolver();
 
         InputFileParser inputParser = new InputFileParser();
         List<PackageModel> packages = inputParser.parseFile(path);
 
-        return ret;
+
+        for(PackageModel p : packages) {
+            resultBuilder.append(solver.solve(p));
+            resultBuilder.append("\n");
+        }
+
+        return resultBuilder.toString();
     }
 }
