@@ -1,21 +1,26 @@
 package com.mobiquityinc.parser;
 
 import com.mobiquityinc.exception.APIException;
+import com.mobiquityinc.model.ItemModel;
 import com.mobiquityinc.model.PackageModel;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class PackageParser {
 
-    //1. Max weight that a package can take is ≤ 100
-    //2. There might be up to 15 items you need to choose from
-    //3. Max weight and cost of an item is ≤ 100
+    public PackageModel parsePackage(String packageString) throws APIException {
+        ItemParser itemParser = new ItemParser();
+        List<ItemModel> items = new ArrayList<>();
+        String[] splittedPackage = packageString.split(":");
+        Double maxWeight = Double.parseDouble(splittedPackage[0].trim());
 
-    public PackageModel parsePackage(String path) throws APIException {
+        try (Stream<String> stream = Arrays.stream(splittedPackage[1].trim().split(" "))) {
+            stream.forEach(line -> items.add(itemParser.parseItem(line)));
+        }
 
-
-        return new PackageModel(0, null);
+        return new PackageModel(maxWeight.intValue(), items);
     }
 }

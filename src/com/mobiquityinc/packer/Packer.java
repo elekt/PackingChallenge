@@ -1,9 +1,10 @@
 package com.mobiquityinc.packer;
 
 import com.mobiquityinc.exception.APIException;
+import com.mobiquityinc.model.PackageModel;
 import com.mobiquityinc.parser.InputFileParser;
-import com.mobiquityinc.parser.PackageParser;
-import com.mobiquityinc.parser.Parser;
+
+import java.util.List;
 
 public class Packer {
 
@@ -11,7 +12,7 @@ public class Packer {
         String ret = "";
 
         InputFileParser inputParser = new InputFileParser();
-        inputParser.parseFile(path);
+        List<PackageModel> packages = inputParser.parseFile(path);
 
         return ret;
     }
