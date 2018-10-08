@@ -28,5 +28,4 @@ class ItemModelTest {
         assertEquals(40.1, item.getWeight(), 0.001);
         assertEquals(50, item.getCost());
     }
-
 }
