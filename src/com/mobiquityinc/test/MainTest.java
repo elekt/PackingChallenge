@@ -11,21 +11,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class MainTest {
 
     @Test
-    void mainNoParams() {
+    void testMainNoParams() {
         Executable closure = () -> Main.main(new String[] {});
 
         assertThrows(APIException.class, closure, "No input parameter passed");
     }
 
     @Test
-    void mainNotFileParam() {
+    void testMainNotFileParam() {
         Executable closure = () -> Main.main(new String[] { "im not a file"});
 
         assertThrows(APIException.class, closure, "Input parameter is not a file");
     }
 
     @Test
-    void mainGoodArgument() {
+    void testMainGoodArgument() {
 
         boolean isFailed = false;
         try {
